@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.exception.DataNotFoundException;
 import com.exchange.Bean;
 import com.exchange.service.CurrentExchangeRateApiService;
 
@@ -29,7 +30,7 @@ public class CurrentExchangeRateApiController {
 	
 	@GetMapping
 	@RequestMapping("/allRates")
-	private List<Bean> getAllExchangeRates(){
+	private List<Bean> getAllExchangeRates() throws DataNotFoundException{
 		return apiservice.getAllExchangeRates();
 		
 	}
@@ -38,7 +39,7 @@ public class CurrentExchangeRateApiController {
 	//http://localhost:8080/ExchangeRateAPIExample/latest?currency=USD&ratesOfYear=2020
 	@GetMapping
 	@RequestMapping("/latest")
-	private List<Bean>  getRatesBasedOnCurrencyandyear(@RequestParam("currency")   String currency, @RequestParam("ratesOfYear") String ratesOfYear) {
+	private List<Bean>  getRatesBasedOnCurrencyandyear(@RequestParam("currency")   String currency, @RequestParam("ratesOfYear") String ratesOfYear) throws DataNotFoundException {
 		
 		
 		return apiservice.getRatesByCurrencyandyear(currency,ratesOfYear);
